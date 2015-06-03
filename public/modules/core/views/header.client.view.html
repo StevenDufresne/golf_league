@@ -1,0 +1,91 @@
+<div class="container" data-ng-controller="HeaderController">
+	<!-- <div class="navbar-header">
+		<button class="navbar-toggle" type="button" data-ng-click="toggleCollapsibleMenu()">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a href="/#!/" class="navbar-brand">DNFC</a>
+	</div>
+	<nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
+		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
+			<li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
+				<a ng-switch-when="dropdown" class="dropdown-toggle">
+					<span data-ng-bind="item.title"></span>
+					<b class="caret"></b>
+				</a>
+				<ul ng-switch-when="dropdown" class="dropdown-menu">
+					<li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
+						<a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
+					</li>
+				</ul>
+				<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
+			<li ui-route="/signup" ng-class="{active: $uiRoute}">
+				<a href="/#!/signup">Sign Up</a>
+			</li>
+			<li class="divider-vertical"></li>
+			<li ui-route="/signin" ng-class="{active: $uiRoute}">
+				<a href="/#!/signin">Sign In</a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<span data-ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="/#!/settings/profile">Edit Profile</a>
+					</li>
+					<li>
+						<a href="/#!/settings/accounts">Manage Social Accounts</a>
+					</li>
+					<li data-ng-show="authentication.user.provider === 'local'">
+						<a href="/#!/settings/password">Change Password</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="/auth/signout">Signout</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</nav> -->
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleNav('left')">
+    	<ng-md-icon icon="menu" style="fill: #fff" size="30"></ng-md-icon> 
+    </md-button>
+    <h2>
+      <span>DNFC</span>
+    </h2>
+    <span flex></span>
+  </div>
+</md-toolbar>
+
+<md-sidenav class="md-sidenav-left md-whiteframe-z2 sidebar" md-component-id="left">
+  <md-content layout-padding>
+  <md-subheader class="md-no-sticky">Main Navigation</md-subheader>
+	<md-list>
+      <md-list-item class="md-3-line"  ng-click="visitLink('/')">
+      		<ng-md-icon icon="home" style="fill: #3F51B5" size="30"></ng-md-icon> 
+	       	<span class="link">Home</span>
+        </md-button>
+      </md-list-item>
+		<md-list-item ng-click="visitLink('scores/create')">
+      		<ng-md-icon icon="add_circle" style="fill: #3F51B5" size="30"></ng-md-icon>
+			<span class="link">New Score</span>
+		</md-list-item>
+		<md-list-item  ng-click="visitLink('golfers/create')">
+		    <ng-md-icon icon="person_add" style="fill: #3F51B5" size="30"></ng-md-icon> 
+				<span class="link">New Golfer</span>
+		</md-list-item>
+	</md-list>
+  </md-content>
+</md-sidenav>
+
+</div>

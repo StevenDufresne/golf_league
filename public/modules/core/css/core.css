@@ -1,0 +1,104 @@
+
+.undecorated-link:hover {
+	text-decoration: none;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	display: none !important;
+}
+.ng-invalid.ng-dirty {
+	border-color: #FA787E;
+}
+.ng-valid.ng-dirty {
+	border-color: #78FA89;
+}
+
+.sidebar md-list-item {
+	display: block;
+	padding: 10px 15px;
+	cursor: pointer;
+}
+
+.sidebar md-list-item:hover {
+	background: #ddd;
+
+}
+
+.sidebar md-list-item  .link{
+	padding-left: 5px;
+	display: inline-block;
+	line-height: 0;
+  height: 21px;
+  vertical-align: middle;
+  color: #555;
+}
+
+.push-down {
+	margin-top: 2px;
+}
+
+.form-horizontal {
+	padding: 0 15px 15px 15px;
+}
+.block {
+	display: block;
+}
+.score-row {
+	padding: 10px;
+	position: relative;
+}
+.left {
+	float: left;
+}
+
+.move-right {
+	margin-left: 20px;
+}
+
+.score-row:hover {
+	background: #eee;
+	cursor: pointer;
+}
+md-select{ 
+padding-bottom: 26px 
+}
+
+.score-row.no-click {
+	background: #fff;
+	cursor: default;
+}
+
+.title {
+	margin: 0;
+}
+.date {
+	margin: 0;
+	color: #777;
+}
+
+.score-row .link {
+	font-size: 10px;
+	color: #555;
+	display: inline-block;
+	vertical-align: middle;
+	text-decoration: none;
+}
+.score-row .link:hover {
+	text-decoration: underline;
+}
+.score-container {
+	top: 5px;
+	position:	absolute;
+	right: 10px;
+	font-weight: bold;
+	font-size: 40px;
+}
+.tags {
+	font-size: 12px;
+	color: #d5d5d5;
+}
+.md-header-items {
+	background: #fafafa;
+}
+
+
+

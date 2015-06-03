@@ -1,0 +1,27 @@
+<section data-ng-controller="ScoresController" data-ng-init="findOne()">
+<a data-ng-href="#!/scores/create" class="md-no-sticky">< Edit score</a>
+<form>
+    <div class="input-container">
+        <md-select flex placeholder="Golfer" ng-model="golfer">
+            <md-option ng-repeat="golfer in golfers" value="{{golfer.name}}">{{golfer.name}}</md-option>
+        </md-select>
+    </div>
+    <div class="input-container">
+        <md-input-container flex>
+          <label>Submission Date</label>
+          <input type="date" ng-model="submissionDate">
+        </md-input-container>
+    </div>
+
+    <div class="input-container">
+        <md-input-container flex>
+          <label>Score</label>
+          <input data-ng-model="score" id="score" required>
+        </md-input-container>
+    </div>
+    <input type="submit" class="btn btn-default">
+    <div data-ng-show="error" class="text-danger">
+        <strong data-ng-bind="error"></strong>
+    </div>
+</form>
+</section>
