@@ -13,7 +13,10 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
-				'public/lib/metrics-graphics/dist/metricsgraphics.css'
+				'public/lib/metrics-graphics/dist/metricsgraphics.css',
+				'public/lib/angular-chartist.js/dist/angular-chartist.js',
+				'public/lib/chartist/dist/chartist.min.css'
+
 			],
 			js: [
 				'public/lib/angular-resource/angular-resource.js', 
@@ -25,7 +28,9 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/jquery/dist/jquery.min.js',
 				'public/lib/d3/d3.min.js',
-				'public/lib/metrics-graphics/dist/metricsgraphics.js'
+				'public/lib/metrics-graphics/dist/metricsgraphics.js',
+				'public/lib/chartist/dist/chartist.min.js',
+				'public/lib/moment/min/moment.min.js'
 			]
 		},
 		css: [

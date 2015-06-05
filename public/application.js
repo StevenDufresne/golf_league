@@ -12,8 +12,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 .config(function($mdThemingProvider){
     // Update the theme colors to use themes on font-icons
     $mdThemingProvider.theme('indigo')
-          .primaryPalette("red")
-          .accentPalette('green')
+          .primaryPalette("green")
           .warnPalette('blue');
   });
 

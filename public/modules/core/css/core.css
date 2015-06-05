@@ -43,7 +43,7 @@
 	display: block;
 }
 .score-row {
-	padding: 10px;
+	padding: 5px;
 	position: relative;
 }
 .left {
@@ -73,6 +73,11 @@ padding-bottom: 26px
 .date {
 	margin: 0;
 	color: #777;
+	font-size: 12px;
+}
+
+.score-row h3 {
+	font-size: 1em;
 }
 
 .score-row .link {
@@ -86,11 +91,11 @@ padding-bottom: 26px
 	text-decoration: underline;
 }
 .score-container {
-	top: 5px;
+	top: 2px;
 	position:	absolute;
-	right: 10px;
+	right: 8px;
 	font-weight: bold;
-	font-size: 40px;
+	font-size: 32px;
 }
 .tags {
 	font-size: 12px;
@@ -100,5 +105,47 @@ padding-bottom: 26px
 	background: #fafafa;
 }
 
+md-toolbar, .md-toolbar-tools {
+	height: 44px;
+	min-height: 44px;
+	max-height: 44px;
+}
 
+charts {
+	display: block;
+	  border-bottom: 1px solid #DDD;
+}
 
+.tile-title {
+	padding-top: 5px;
+	display: block;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 8px;
+	color: #aaa;
+}
+.tile-number {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+}
+.tile-number , .ct-chart .ct-series.ct-series-a .ct-point {
+
+}
+
+.ct-chart .ct-series.ct-series-a .ct-line {
+/*	stroke: #888;
+*/}
+.page-title {
+	margin:0 ;
+	font-weight: normal;
+}
+.ct-chart .ct-label.ct-horizontal.ct-end {
+	font-size: 9px;
+	margin-left: -10px;
+
+}
+
+.stats {
+	padding-top: 60px;
+}

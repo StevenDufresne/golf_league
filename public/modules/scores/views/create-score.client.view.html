@@ -1,7 +1,6 @@
 <section data-ng-controller="ScoresController">
 <md-subheader class="md-no-sticky">Add a new score</md-subheader>
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
-
           <div layout="row">
             <div flex>
               <div class="input-container left">
@@ -12,8 +11,10 @@
               </div>
                <div class="input-container left move-right push-down">
                   <md-input-container flex>
-                    <label>Tags</label>
-                    <input type="tags" ng-model="tags" placeholder="Front or Back">
+                   <md-select flex ng-model="tags" >
+                    <md-option value="front" selected='true'>Front</md-option>
+                     <md-option value="back">Back</md-option>
+                    </md-select>
                   </md-input-container>
               </div>
             </div>
