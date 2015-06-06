@@ -9,12 +9,14 @@ angular.module('golfers').controller('GolfersController', ['$scope', '$statePara
 		$scope.create = function() {
 			// Create new Golfer object
 			var golfer = new Golfers ({
-				name: this.name
+				name: this.name,
+				description: this.desc
 			});
 
 			// Redirect after save
 			golfer.$save(function(response) {
-				$scope.name = '';	
+				$scope.name = '';
+				$scope.desc = '';	
 				$scope.find();
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;

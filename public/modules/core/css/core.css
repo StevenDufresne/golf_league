@@ -36,8 +36,16 @@
 	margin-top: 2px;
 }
 
-.form-horizontal {
-	padding: 0 15px 15px 15px;
+.course-details {
+	padding: 0 10px;
+	background: #f8f8f8;
+}
+
+.course-details md-input-container {
+	padding-bottom: 5px;
+}
+.player-scores {
+	padding: 10px;
 }
 .block {
 	display: block;
@@ -78,6 +86,9 @@ padding-bottom: 26px
 
 .score-row h3 {
 	font-size: 1em;
+}
+.button-container {
+	padding: 0 10px 10px 10px;
 }
 
 .score-row .link {
@@ -145,7 +156,24 @@ charts {
 	margin-left: -10px;
 
 }
-
 .stats {
-	padding-top: 60px;
+	padding: 10px 0;
+}
+.description {
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: normal;
+	margin-top: 05px;
+}
+.disclaimer {
+	margin: 0;
+	padding: 0 10px 10px 10px;
+	font-size: 10px;
+}
+.saved {
+	color: green;
+}
+
+.form-horizontal md-input-container {
+	padding-bottom: 5px;
 }

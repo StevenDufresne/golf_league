@@ -1,19 +1,25 @@
 <section data-ng-controller="GolfersController">
     <form class="form-horizontal"  data-ng-submit="create()" novalidate>
        <md-input-container flex>
-              <label>Name</label>
-              <input data-ng-model="name" id="name" required>
-            </md-input-container>
+          <label>Name</label>
+          <input data-ng-model="name" id="name" required>
+        </md-input-container>
 
-            <div class="form-group">
-          <md-button type="submit"  class="md-raised  md-primary">Add Golfer</md-button>
-            </div>
-    		<div data-ng-show="error" class="text-danger">
-    			<strong data-ng-bind="error"></strong>
-    		</div>
-    </form>
-    <md-divider></md-divider>
-    <md-subheader class="md-no-sticky">Current golfers</md-subheader>
+       <md-input-container flex>
+          <label>Description</label>
+          <textarea data-ng-model="desc" id="desc"></textarea>
+        </md-input-container>
+
+
+        <div class="form-group">
+        <md-button type="submit"  class="md-raised  md-primary">Add Golfer</md-button>
+          </div>
+  		<div data-ng-show="error" class="text-danger">
+  			<strong data-ng-bind="error"></strong>
+  		</div>
+</form>
+<md-divider></md-divider>
+<md-subheader class="md-no-sticky">Current golfers</md-subheader>
 
 <md-list  data-ng-init="find()">
    <md-list-item ng-repeat="golfer in golfers" class="md-2-line">

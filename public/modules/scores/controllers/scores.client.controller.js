@@ -4,25 +4,28 @@
 angular.module('scores').controller('ScoresController', ['$scope', '$stateParams', '$location', 'Authentication', 'Scores', 'Golfers',
 	function($scope, $stateParams, $location, Authentication, Scores, Golfers) {
 		$scope.authentication = Authentication;
+		$scope.success = false;
 
 		// Create new Score
 		$scope.create = function() {
-			// Create new Score object
-			var score = new Scores ({
-				golfer: this.golfer,
-				score: this.score,
-				date: this.submissionDate,
-				tags: this.tags
-			});
+			var self = this;
 
-			// Redirect after save
-			score.$save(function(response) {
-				$scope.find();
-				$scope.golfer = '';
-				$scope.score = '';
+
+			angular.forEach(this.golfers, function (value, key) {
+				var score = new Scores ({
+					golfer: value.name,
+					score: value.score,
+					date: self.submissionDate,
+					tags: self.tags
+				}).$save(function(response) {
+					value.score = "";
+					$scope.success = true;
+
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
-			});
+				});
+			})
+
 		};
 
 		// Remove existing Score

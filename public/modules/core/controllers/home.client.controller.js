@@ -21,6 +21,14 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		    };	
 
 		    $scope.currentGolfer = score.golfer;
+	
+		    Golfers.query(function (res) {
+		    	angular.forEach(res,function (value, key) {
+		    		if(score.golfer == value.name) {
+		    			$scope.currentGolfer = value
+		    		}
+		    	})
+		    })
 
 		    buildLineDataSet();
 		}
@@ -82,7 +90,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			};
 
 			return sum/arr.length;
-
 		}
 
 		function buildLineDataSet() {

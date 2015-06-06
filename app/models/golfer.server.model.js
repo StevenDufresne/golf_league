@@ -20,6 +20,9 @@ var GolferSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
+	description: {
+
+	},
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
