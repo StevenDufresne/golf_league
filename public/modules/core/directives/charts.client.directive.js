@@ -6,9 +6,13 @@ angular.module('core').directive('charts', [
 			template: '<div></div>',
 			restrict: 'E',
 			link: function postLink(scope, element, attrs) {
-				scope.$watch('lineData', function(newValue, oldValue) {
+				var id = '#'+ attrs.id;
+				var chartType = attrs.type;
+				var dataName = attrs.dataname;
+
+				scope.$watch(dataName, function(newValue, oldValue) {
 	    			if (newValue && newValue.length > 0) {
-						var chart = new Chartist.Line('.ct-chart', {
+	    				new Chartist[chartType](id, {
 						  labels: newValue[1],
 						  series: [newValue[0]]
 						}, {
@@ -17,7 +21,8 @@ angular.module('core').directive('charts', [
 								right: 20,
 								left: -10
 							}
-						});
+						})
+
 					}
 		        });
 			}

@@ -124,7 +124,7 @@ md-toolbar, .md-toolbar-tools {
 
 charts {
 	display: block;
-	  border-bottom: 1px solid #DDD;
+	 border-bottom: 1px solid #DDD;
 }
 
 .tile-title {
@@ -140,13 +140,28 @@ charts {
 	font-size: 30px;
 	font-weight: bold;
 }
-.tile-number , .ct-chart .ct-series.ct-series-a .ct-point {
+.card {
+	margin: 5px;
+}
+.card span {
+	display: block;
+	text-align: center;
+}
+.chart-container {
+	margin-top: 10px;
+}
+.outline {
+	border: 1px solid #ddd;
+}
+
+
+/*.tile-number , .ct-chart .ct-series.ct-series-a .ct-point {
 
 }
 
 .ct-chart .ct-series.ct-series-a .ct-line {
-/*	stroke: #888;
-*/}
+stroke: #888;
+}*/
 .page-title {
 	margin:0 ;
 	font-weight: normal;

@@ -1,10 +1,14 @@
 <section data-ng-controller="HomeController">
   <md-tabs md-stretch-tabs="never" md-dynamic-height md-border-bottom md-selected="tab.selectedIndex">
     <md-tab label="Last Week" md-on-select="resetTabs(0)">
+      <div class="card" >
+        <span class="tile-title">Scores</span>
+        <charts class="ct-chart" id="ct-scores" type="Bar" dataName="weekData" data="{{ weekData }}"></charts>           
+      </div>
       <md-content class="md-padding score-rows">
         <div data-ng-init="getScores()">
           <md-list>
-             <md-list-item ng-click="seeGolfer(score)" ng-repeat="score in scores | isAfter: weekDate" class="md-2-line">
+             <md-list-item ng-click="seeGolfer(score)" ng-repeat="score in weekScores" class="md-2-line">
               <div class="md-list-item-text score-row">
                 <h3 class="title">{{ score.golfer }} </h3>
                 <span class="date block"> {{ score.date | date : format : timezone}} <span class="tags"> ({{score.tags}})</span></span>
@@ -21,8 +25,13 @@
     </md-tab>
 
     <md-tab label="Year"  md-on-select="showAllTime(1)">
+      <div class="chart-container">
+        <div class="card" >
+          <span class="tile-title">Average Score</span>
+          <charts class="ct-chart" id="ct-all" type="Bar" dataName="yearData" data="{{ yearData }}"></charts>           
+        </div>
+      </div>
       <md-content class="md-padding score-rows">
-       <scatter  scatterPlotData="{{ scatterPlotData }}"></scatter>
         <div data-ng-init="">
           <md-list>
              <md-list-item ng-click="seeGolfer(score)" ng-repeat="score in scores | orderBy: '-date'" class="md-2-line">
@@ -40,30 +49,37 @@
         </div>
       </md-content>
     </md-tab>
-    <md-tab label="Golfer" md-on-select="buildGolderScores()" ng-disabled="tab.secondLocked">
+    <md-tab label="Golfer" md-on-select="buildGolferScores()" ng-disabled="tab.secondLocked">
       <md-content class="md-padding">
       <h2 class="page-title" ng-bind="currentGolfer.name"></h2>
       <p class="description" ng-bind="currentGolfer.description"></p>
-      <md-divider ></md-divider>
       <div class="stats">
         <div layout="row">
-          <md-card flex>
-            <span class="tile-title">Average</span>
-            <span class="tile-number" ng-bind="average"></span>
-          </md-card>
-          <md-card flex>
-            <span class="tile-title">Average Front</span>
-            <span class="tile-number" ng-bind="avgFront"></span>
-          </md-card>
-          <md-card flex>
-            <span class="tile-title">Average Back</span>
-            <span class="tile-number" ng-bind="avgBack"></span>
-          </md-card>
+        <div class="card-container" flex>
+            <div class="card outline" >
+              <span class="tile-title">Average</span>
+              <span class="tile-number" ng-bind="average"></span>
+            </div>
+          </div>
+          <div class="card-container" flex>
+            <div class="card outline" >
+              <span class="tile-title">Average Front</span>
+              <span class="tile-number" ng-bind="avgFront"></span>
+            </div>
+          </div>
+          <div class="card-container" flex>
+            <div class="card outline"  >
+              <span class="tile-title">Average Back</span>
+              <span class="tile-number" ng-bind="avgBack"></span>
+            </div>
+          </div>
         </div>
-          <md-card>
+        <div class="chart-container">
+          <div class="card" >
             <span class="tile-title">Scoring Trend</span>
-            <charts class="ct-chart"  data="{{ lineData }}"></charts>
-          </md-card>
+            <charts class="ct-chart" id="ct-golfer" type="Line" dataName="golferData" data="{{ golferData }}"></charts>
+          </div>
+        </div>
           <md-list>
              <md-list-item ng-repeat="score in currentScores | orderBy: '-date'" class="md-2-line">
               <div class="md-list-item-text score-row no-click">

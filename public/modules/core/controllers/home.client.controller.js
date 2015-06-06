@@ -8,11 +8,13 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		$scope.lockedTab = true;
 		$scope.currentGolfer = '';
-		$scope.lineData = "";
-		$scope.scatterPlotData = "";
-		$scope.weekDate = moment().subtract(14, 'days');
+		$scope.golferData = "";
+		$scope.weekData = "";
+		$scope.yearData = "";
+		$scope.weekScores = "";
 
 		resetTabs();
+
 
 		$scope.seeGolfer = function (score) {
 			$scope.tab = {
@@ -30,7 +32,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		    	})
 		    })
 
-		    buildLineDataSet();
+		    buildGolferDataSet();
 		}
 
 		$scope.resetTabs = function (idx) {
@@ -40,8 +42,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.showAllTime = function (idx) {
 			resetTabs(idx);
 
-			if($scope.scatterPlotData == "") {
-				buildScatterDataSet();
+			if($scope.yearData == "") {
+				buildYearDataSet();
 			}
 		};
 
@@ -50,10 +52,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				$scope.scores = res.sort(function(a,b){
 				  return new Date(b.date) - new Date(a.date);
 				});
+
+				buildWeekDataSet();
 			});
 		};
 
-		$scope.buildGolderScores = function () {
+		$scope.buildGolferScores = function () {
 			var temp = [],
 				avgFront = [],
 				avgBack = [];
@@ -79,20 +83,66 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			$scope.average = (parseInt($scope.avgFront) + parseInt($scope.avgBack)) / 2
 		}
 
-		function getAverage (arr) {
-			var sum = 0;
 
-			if(arr.length == 0) return 0;
+		function buildWeekDataSet() {
+			var series = [],
+				labels = [],
+				weekScores = [];
 
-			for (var i = 0; i < arr.length; i++) {
-				var num = parseInt(arr[i])
-				sum += num;
-			};
+			angular.forEach($scope.scores, function(value, key) {
+				if(moment().diff(value.date, 'days') < 7) {
+				
+					labels.push(value.golfer);
+					series.push(parseInt(value.score));
 
-			return sum/arr.length;
+					weekScores.push(value)
+
+				}
+			})
+
+			$scope.weekScores = weekScores;
+
+			$scope.weekData = [series, labels];
+
 		}
 
-		function buildLineDataSet() {
+		function buildYearDataSet() {
+			var series = [],
+				labels = [],
+				obj = {},
+				avgObj = []
+
+			// Build arrays
+			angular.forEach($scope.scores, function(value, key) {
+			
+				if(obj[value.golfer] !== undefined) {
+					obj[value.golfer].series.push(parseInt(value.score));
+
+				} else {
+					obj[value.golfer] = {};
+					obj[value.golfer].series = [];
+
+					obj[value.golfer].series.push(parseInt(value.score));
+				}
+
+				if(labels.indexOf(value.golfer) < 0) {
+					labels.push(value.golfer);
+				}
+			})
+
+			//Calculate averages
+			angular.forEach(obj, function(value, key) {
+				avgObj.push(getAverage(value.series))
+
+
+			})
+
+			$scope.yearData = [avgObj, labels];
+
+		}
+
+
+		function buildGolferDataSet() {
 			var series = [],
 				labels = [];
 
@@ -106,40 +156,22 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				}
 			})
 
-			$scope.lineData = [series, labels];
+			$scope.golferData = [series, labels];
 
 		}
 
-		function buildScatterDataSet() {
-			var series = [],
-				labels = [],
-				obj = {};
 
-			angular.forEach($scope.scores, function(value, key) {
-				var d = moment(value.date).format('L').substring(0,5)
-				if(labels.indexOf(d) < 1) {
-					labels.push(d);
-				}
+		function getAverage (arr) {
+			var sum = 0;
 
-				if(obj[value.golfer] !== undefined) {
-					obj[value.golfer].series.push(parseInt(value.score));
+			if(arr.length == 0) return 0;
 
-				} else {
-					obj[value.golfer] = {};
-					obj[value.golfer].series = [];
+			for (var i = 0; i < arr.length; i++) {
+				var num = parseInt(arr[i])
+				sum += num;
+			};
 
-					obj[value.golfer].series.push(parseInt(value.score));
-				}
-
-
-			})
-
-			angular.forEach(obj, function (value, key) {
-				series.push(value.series);
-			})
-
-			$scope.scatterPlotData = [series, labels];
-
+			return sum/arr.length;
 		}
 
 		function resetTabs(idx) {
