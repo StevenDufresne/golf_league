@@ -23,6 +23,7 @@ var GolferSchema = new Schema({
 	description: {
 
 	},
+	imageUrl: {},
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

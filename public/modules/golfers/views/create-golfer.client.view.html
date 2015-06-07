@@ -1,4 +1,5 @@
 <section data-ng-controller="GolfersController">
+  <div class="player-scores">
     <form class="form-horizontal"  data-ng-submit="create()" novalidate>
        <md-input-container flex>
           <label>Name</label>
@@ -10,6 +11,11 @@
           <textarea data-ng-model="desc" id="desc"></textarea>
         </md-input-container>
 
+       <md-input-container flex>
+          <label>Image Url</label>
+          <input data-ng-model="imageUrl" id="imageUrl">
+        </md-input-container>
+
 
         <div class="form-group">
         <md-button type="submit"  class="md-raised  md-primary">Add Golfer</md-button>
@@ -18,23 +24,24 @@
   			<strong data-ng-bind="error"></strong>
   		</div>
 </form>
+</div>
 <md-divider></md-divider>
 <md-subheader class="md-no-sticky">Current golfers</md-subheader>
-
-<md-list  data-ng-init="find()">
-   <md-list-item ng-repeat="golfer in golfers" class="md-2-line">
-    <div class="md-list-item-text score-row">
-      <h3 class="title">{{ golfer.name }}
+  <md-list data-ng-init="find()">
+     <md-list-item ng-repeat="golfer in golfers" class="md-2-line">
+     <div class="score-row no-click clearfix">
+      <div class="golfer-icon">
+        <img ng-src="{{golfer.imageUrl}}">
+      </div>
+      <div class="golfer-info">
+        <h3 class="title">{{ golfer.name }}
           <a class="link" data-ng-href="#!/golfers/{{golfer._id}}/edit">Change</a>
-          <a class="link" href="#" ng-click="remove(golfer)">Delete</a>
-      </h3>
-      
-    </div>
-              
+              <a class="link" href="#" ng-click="remove(golfer)">Delete</a>
+        </h3>
 
-    <md-divider ></md-divider>
-  </md-list-item>
-
-</md-list>
+        </div>
+      </div>
+    </md-list-item>
+  </md-list>
 
 </section>

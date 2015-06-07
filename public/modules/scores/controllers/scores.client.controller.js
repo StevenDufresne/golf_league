@@ -12,11 +12,12 @@ angular.module('scores').controller('ScoresController', ['$scope', '$stateParams
 
 
 			angular.forEach(this.golfers, function (value, key) {
+
 				var score = new Scores ({
-					golfer: value.name,
 					score: value.score,
 					date: self.submissionDate,
-					tags: self.tags
+					tags: self.tags,
+					golfer: value
 				}).$save(function(response) {
 					value.score = "";
 					$scope.success = true;

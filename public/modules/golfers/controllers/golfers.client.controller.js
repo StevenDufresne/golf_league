@@ -10,13 +10,15 @@ angular.module('golfers').controller('GolfersController', ['$scope', '$statePara
 			// Create new Golfer object
 			var golfer = new Golfers ({
 				name: this.name,
-				description: this.desc
+				description: this.desc,
+				imageUrl: this.imageUrl
 			});
 
 			// Redirect after save
 			golfer.$save(function(response) {
 				$scope.name = '';
 				$scope.desc = '';	
+				$scope.imageUrl ='';
 				$scope.find();
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;

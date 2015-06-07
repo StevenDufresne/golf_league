@@ -64,14 +64,20 @@
 	margin: 0 16px 16px 16px;
 }
 .golfer-icon {
+	width: 20%;
+	overflow: hidden;
 	margin-right: 16px;
 	border-radius: 30px;
-	height: 40px;
-	width: 40px;
 	background: #bbb;
 	float: left;
 }
+
+.golfer-icon, .golfer-icon  img {
+	height: 40px;
+	width: 40px;	
+}
 .golfer-info {
+	width: 80%;
 	float: left;
 }
 
@@ -145,12 +151,13 @@ charts {
 }
 
 .tile-title {
-	padding-top: 5px;
+	padding: 5px;
+	background-color: #3F51B5;
 	display: block;
 	text-transform: uppercase;
 	text-align: center;
 	font-size: 8px;
-	color: #aaa;
+	color: #fff;
 }
 .tile-number {
 	text-align: center;
@@ -169,6 +176,9 @@ charts {
 }
 .outline {
 	border: 1px solid #ddd;
+}
+.no-mb {
+	margin-bottom: 0 !important;
 }
 
 

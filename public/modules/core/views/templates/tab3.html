@@ -1,0 +1,73 @@
+<md-subheader>Golfer Bio</md-subheader>
+ <div class="clearfix wrangle"> 
+   <div class="golfer-icon">
+      <img ng-src="{{golferStats.currentGolfer.imageUrl}}">
+    </div>
+    <div class="golfer-info">
+      <h3 class="title">{{ golferStats.currentGolfer.name }}</h3>
+      <p class="description" ng-bind="golferStats.currentGolfer.description"></p>
+    </div>
+  </div>
+  <md-divider></md-divider>
+
+  <md-subheader>Overview</md-subheader>      
+  <div layout="row" class="wrangle">
+    <div class="card-container" flex>
+      <div class="card outline" >
+        <span class="tile-title">Average</span>
+        <span class="tile-number" ng-bind="golferStats.average"></span>
+      </div>
+    </div>
+    <div class="card-container" flex>
+      <div class="card outline" >
+        <span class="tile-title">Average Front</span>
+        <span class="tile-number" ng-bind="golferStats.avgFront"></span>
+      </div>
+    </div>
+    <div class="card-container" flex>
+      <div class="card outline"  >
+        <span class="tile-title">Average Back</span>
+        <span class="tile-number" ng-bind="golferStats.avgBack"></span>
+      </div>
+    </div>
+  </div>
+  <md-divider></md-divider>
+<md-subheader>Outliers</md-subheader>
+<md-list class="clearfix">
+   <md-list-item ng-click="seeGolfer(item.score.golfer.name)" ng-repeat="item in golferStats.stats">
+   <div class="score-row clearfix">
+     <div class="golfer-icon">
+        <img ng-src="{{item.score.golfer.imageUrl}}">
+      </div>
+      <div class="golfer-info no-click">
+        <h3 class="title">{{ item.score.golfer.name }}</h3>
+        <span class="date block"> {{ item.score.date | date : format : timezone}} <span class="tags"> ({{item.score.tags}})</span></span>
+        <div class="score-container">
+          <span class="score">{{ item.score.score }}</span>
+        </div>
+      </div>
+    </div>
+  </md-list-item>
+</md-list> 
+<md-divider></md-divider>
+  <md-subheader>Scoring Trend</md-subheader>     
+  <div class="card" >
+    <charts class="ct-chart" id="ct-golfer" type="Line" dataName="golferStats.golferData" data="{{ golferStats.golferData }}"></charts>
+  </div>
+  <md-subheader>Scores</md-subheader>
+    <md-list class="clearfix">
+       <md-list-item ng-repeat="score in golferStats.currentScores | orderBy: '-date'" class="md-2-line">
+        <div class="score-row no-click clearfix">
+          <div class="golfer-icon">
+            <img ng-src="{{score.golfer.imageUrl}}">
+          </div>
+          <div class="golfer-info">
+            <h3 class="title">{{ score.golfer.name }}</h3>
+            <span class="date block"> {{ score.date | date : format : timezone}} <span class="tags"> ({{score.tags}})</span></span>
+             <div class="score-container">
+            <span class="score">{{ score.score }}</span>
+            </div>
+          </div>
+        </div>
+      </md-list-item>
+    </md-list>

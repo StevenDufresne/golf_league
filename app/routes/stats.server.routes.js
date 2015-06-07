@@ -14,5 +14,9 @@ module.exports = function(app) {
 	app.route('/improved')
 		.get(stats.improved);
 
+	app.route('/lowHigh')
+		.get(stats.lowHigh);
+
+
 
 };

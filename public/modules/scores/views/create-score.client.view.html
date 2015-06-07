@@ -52,7 +52,7 @@
       <md-list>
          <md-list-item ng-repeat="score in scores | orderBy: '-date'" class="md-2-line">
           <div class="md-list-item-text score-row">
-            <h3 class="title">{{ score.golfer }} 
+            <h3 class="title">{{ score.golfer.name }} 
             <a class="link" href="#" ng-click="remove(score)">Delete</a>
             </h3>
             <span class="date block">{{ score.date | date : format : timezone}}</span>

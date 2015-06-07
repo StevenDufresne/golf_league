@@ -10,11 +10,7 @@ var mongoose = require('mongoose'),
  * Score Schema
  */
 var ScoreSchema = new Schema({
-	golfer: {
-		type: String,
-		required: 'Please fill golfer name',
-		trim: true
-	},
+	golfer: {},
 	tags: {
 		type: String
 	},

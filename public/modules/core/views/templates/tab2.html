@@ -1,0 +1,43 @@
+<md-subheader>Overview</md-subheader>
+<div layout="row" class="wrangle">
+  <div class="card-container" ng-repeat="avg in yearStats.averages" flex>
+    <div class="card outline" >
+      <span class="tile-title">Average {{avg.holes}}</span>
+      <span class="tile-number" ng-bind="avg.mean"></span>
+    </div>
+  </div>
+</div>
+<md-divider></md-divider>
+<md-subheader>Outliers</md-subheader>
+<md-list class="clearfix">
+   <md-list-item ng-click="seeGolfer(item.score.golfer.name)" ng-repeat="item in yearStats.stats">
+   <div class="score-row clearfix">
+     <div class="golfer-icon">
+        <img ng-src="{{item.score.golfer.imageUrl}}">
+      </div>
+      <div class="golfer-info no-click">
+        <h3 class="title">{{ item.score.golfer.name }}</h3>
+        <span class="date block"> {{ item.score.date | date : format : timezone}} <span class="tags"> ({{item.score.tags}})</span></span>
+        <div class="score-container">
+          <span class="score">{{ item.score.score }}</span>
+        </div>
+      </div>
+    </div>
+  </md-list-item>
+</md-list> 
+<md-divider></md-divider>
+
+<md-subheader>Most Consistent</md-subheader>
+<md-list class="clearfix">
+   <md-list-item ng-click="seeGolfer(item.golfer.name)" ng-repeat="item in yearStats.consistent | orderBy: 'deviation'">
+   <div class="score-row clearfix">
+     <div class="golfer-icon">
+        <img ng-src="{{item.golfer.imageUrl}}">
+      </div>
+      <div class="golfer-info no-click">
+        <h3 class="title">{{ item.golfer.name }}</h3>
+        <small class="gentle">Standard Deviation: <span ng-bind="item.deviation "></span></small>
+      </div>
+    </div>
+  </md-list-item>
+</md-list> 

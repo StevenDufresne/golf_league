@@ -1,0 +1,18 @@
+<md-subheader>Most Improved</md-subheader>
+  <md-list class="clearfix">
+     <md-list-item ng-click="seeGolfer(stat.golfer.name)" ng-repeat="stat in weekStats.improved" class="md-2-line">
+      <div class="score-row clearfix">
+        <div class="golfer-icon">
+          <img ng-src="{{stat.golfer.imageUrl}}">
+        </div>
+         <div class="golfer-info">
+          <h3 class="title">{{ stat.golfer.name }} </h3>
+          <small class="gentle">Shot <span ng-bind="stat.improvement "></span>% better than his average</small>
+          <div class="score-container">
+            <span class="score">{{ stat.score }}</span>
+          </div>
+      </div>
+    </div>
+  </md-list-item>
+</md-list>
+<md-divider></md-divider>

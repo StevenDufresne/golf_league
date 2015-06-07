@@ -13,6 +13,7 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 		$scope.yearData = "";
 		$scope.weekStats = {};
 		$scope.yearStats = {};
+		$scope.golferStats = {};
 
 		resetTabs();
 
@@ -22,12 +23,12 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 		      secondLocked:  false
 		    };	
 
-		    $scope.currentGolfer = golfer;
+		    $scope.golferStats.currentGolfer = golfer;
 	
 		    Golfers.query(function (res) {
 		    	angular.forEach(res,function (value, key) {
 		    		if(golfer == value.name) {
-		    			$scope.currentGolfer = value
+		    			$scope.golferStats.currentGolfer = value
 		    		}
 		    	})
 		    })
@@ -63,7 +64,7 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 				avgBack = [];
 
 			angular.forEach($scope.scores, function (value, key) {
-				if($scope.currentGolfer == value.golfer) {
+				if($scope.golferStats.currentGolfer == value.golfer.name) {
 					temp.push(value);
 
 					if(value.tags.toLowerCase()  == "front") {
@@ -76,10 +77,10 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 				}
 			})
 	
-			$scope.currentScores = temp;
-			$scope.avgFront = getAverage(avgFront).toFixed(1);
-			$scope.avgBack = getAverage(avgBack).toFixed(1);
-			$scope.average = (parseInt($scope.avgFront) + parseInt($scope.avgBack)) / 2
+			$scope.golferStats.currentScores = temp;
+			$scope.golferStats.avgFront = getAverage(avgFront).toFixed(1);
+			$scope.golferStats.avgBack = getAverage(avgBack).toFixed(1);
+			$scope.golferStats.average = (parseInt($scope.golferStats.avgFront) + parseInt($scope.golferStats.avgBack)) / 2
 		}
 
 
@@ -89,13 +90,11 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 				weekScores = [];
 
 			angular.forEach($scope.scores, function(value, key) {
-				if(moment().diff(value.date, 'days') < 7) {
-				
+				if(moment().diff(value.date, 'days') < 7) {		
 					labels.push(value.golfer);
 					series.push(parseInt(value.score));
 
 					weekScores.push(value)
-
 				}
 			})
 
@@ -107,7 +106,6 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 			  	$scope.weekStats.improved = data;
 			  });
 
-
 		}
 
 		function buildYearDataSet() {
@@ -115,34 +113,6 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 				labels = [],
 				obj = {},
 				avgObj = []
-
-			// // Build arrays
-			// angular.forEach($scope.scores, function(value, key) {
-			
-			// 	if(obj[value.golfer] !== undefined) {
-			// 		obj[value.golfer].series.push(parseInt(value.score));
-
-			// 	} else {
-			// 		obj[value.golfer] = {};
-			// 		obj[value.golfer].series = [];
-
-			// 		obj[value.golfer].series.push(parseInt(value.score));
-			// 	}
-
-			// 	if(labels.indexOf(value.golfer) < 0) {
-			// 		labels.push(value.golfer);
-			// 	}
-			// })
-
-			// //Calculate averages
-			// angular.forEach(obj, function(value, key) {
-			// 	avgObj.push(getAverage(value.series))
-
-
-			// })
-
-			// $scope.yearData = [avgObj, labels];
-
 
 			$http.get('/sd').
 			  success(function(data, status, headers, config) {
@@ -154,7 +124,10 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 			  	$scope.yearStats.averages = data;
 			  });
 
-
+			$http.get('/lowHigh').
+			  success(function(data, status, headers, config) {
+			  	$scope.yearStats.stats = data;
+			  });
 		}
 
 
@@ -163,17 +136,25 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 				labels = [];
 
 			angular.forEach($scope.scores, function(value, key) {
-				if(value.golfer == $scope.currentGolfer) {
+				if(value.golfer.name == $scope.golferStats.currentGolfer) {
 					var d = moment(value.date).format('L').substring(0,5)
-					
+		
 					labels.push(d);
 					series.push(parseInt(value.score));
 
 				}
 			})
 
-			$scope.golferData = [series, labels];
+			//re order, they are the wrong direction for the chart
+			series.reverse();
+			labels.reverse();
 
+			$scope.golferStats.golferData = [series, labels];
+
+			$http.get('/lowHigh?golfer=' + $scope.golferStats.currentGolfer).
+			  success(function(data, status, headers, config) {
+			  	$scope.golferStats.stats = data;
+			  });
 		}
 
 
