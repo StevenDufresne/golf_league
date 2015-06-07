@@ -34,8 +34,8 @@
   <md-divider></md-divider>
 <md-subheader>Outliers</md-subheader>
 <md-list class="clearfix">
-   <md-list-item ng-click="seeGolfer(item.score.golfer.name)" ng-repeat="item in golferStats.stats">
-   <div class="score-row clearfix">
+   <md-list-item ng-repeat="item in golferStats.stats">
+   <div class="score-row clearfix no-click ">
      <div class="golfer-icon">
         <img ng-src="{{item.score.golfer.imageUrl}}">
       </div>
