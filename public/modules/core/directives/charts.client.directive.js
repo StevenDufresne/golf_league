@@ -12,9 +12,18 @@ angular.module('core').directive('charts', [
 
 				scope.$watch(dataName, function(newValue, oldValue) {
 	    			if (newValue && newValue.length > 0) {
+	    				var series = "";
+
+	    				if(typeof newValue[0][0] == 'number') {
+	    					series = [newValue[0]];
+	    				} else {
+	    					series = newValue[0];
+	    				}
+
+
 	    				new Chartist[chartType](id, {
 						  labels: newValue[1],
-						  series: [newValue[0]]
+						  series: series
 						}, {
 							fullWidth: true,
 							chartPadding: {

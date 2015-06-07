@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'Scores', 'Golfers',
-	function($scope, Authentication, Scores, Golfers) {
+angular.module('core').controller('HomeController', ['$scope', '$http', 'Authentication', 'Scores', 'Golfers',
+	function($scope, $http,	 Authentication, Scores, Golfers) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 
@@ -11,22 +11,22 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.golferData = "";
 		$scope.weekData = "";
 		$scope.yearData = "";
-		$scope.weekScores = "";
+		$scope.weekStats = {};
+		$scope.yearStats = {};
 
 		resetTabs();
 
-
-		$scope.seeGolfer = function (score) {
+		$scope.seeGolfer = function (golfer) {
 			$scope.tab = {
 		      selectedIndex: 2,
 		      secondLocked:  false
 		    };	
 
-		    $scope.currentGolfer = score.golfer;
+		    $scope.currentGolfer = golfer;
 	
 		    Golfers.query(function (res) {
 		    	angular.forEach(res,function (value, key) {
-		    		if(score.golfer == value.name) {
+		    		if(golfer == value.name) {
 		    			$scope.currentGolfer = value
 		    		}
 		    	})
@@ -76,7 +76,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				}
 			})
 	
-
 			$scope.currentScores = temp;
 			$scope.avgFront = getAverage(avgFront).toFixed(1);
 			$scope.avgBack = getAverage(avgBack).toFixed(1);
@@ -100,9 +99,14 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				}
 			})
 
-			$scope.weekScores = weekScores;
+			$scope.weekStats.weekScores = weekScores;
+			$scope.weekStats.weekData = [series, labels];
 
-			$scope.weekData = [series, labels];
+			$http.get('/improved').
+			  success(function(data, status, headers, config) {
+			  	$scope.weekStats.improved = data;
+			  });
+
 
 		}
 
@@ -112,32 +116,44 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				obj = {},
 				avgObj = []
 
-			// Build arrays
-			angular.forEach($scope.scores, function(value, key) {
+			// // Build arrays
+			// angular.forEach($scope.scores, function(value, key) {
 			
-				if(obj[value.golfer] !== undefined) {
-					obj[value.golfer].series.push(parseInt(value.score));
+			// 	if(obj[value.golfer] !== undefined) {
+			// 		obj[value.golfer].series.push(parseInt(value.score));
 
-				} else {
-					obj[value.golfer] = {};
-					obj[value.golfer].series = [];
+			// 	} else {
+			// 		obj[value.golfer] = {};
+			// 		obj[value.golfer].series = [];
 
-					obj[value.golfer].series.push(parseInt(value.score));
-				}
+			// 		obj[value.golfer].series.push(parseInt(value.score));
+			// 	}
 
-				if(labels.indexOf(value.golfer) < 0) {
-					labels.push(value.golfer);
-				}
-			})
+			// 	if(labels.indexOf(value.golfer) < 0) {
+			// 		labels.push(value.golfer);
+			// 	}
+			// })
 
-			//Calculate averages
-			angular.forEach(obj, function(value, key) {
-				avgObj.push(getAverage(value.series))
+			// //Calculate averages
+			// angular.forEach(obj, function(value, key) {
+			// 	avgObj.push(getAverage(value.series))
 
 
-			})
+			// })
 
-			$scope.yearData = [avgObj, labels];
+			// $scope.yearData = [avgObj, labels];
+
+
+			$http.get('/sd').
+			  success(function(data, status, headers, config) {
+			  	$scope.yearStats.consistent = data;
+			  });
+
+			 $http.get('/averages').
+			  success(function(data, status, headers, config) {
+			  	$scope.yearStats.averages = data;
+			  });
+
 
 		}
 
@@ -179,6 +195,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		      selectedIndex: idx,
 		      secondLocked:  true
 		    };
+
 		}
 	}
 ])
