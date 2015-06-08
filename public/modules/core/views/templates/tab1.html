@@ -1,3 +1,22 @@
+<md-subheader>Net Low/Net High</md-subheader>
+<md-list class="clearfix">
+   <md-list-item ng-click="seeGolfer(item.score.golfer.name)" ng-repeat="item in weekStats.lowHigh">
+   <div class="score-row clearfix">
+     <div class="golfer-icon">
+        <img ng-src="{{item.score.golfer.imageUrl}}">
+      </div>
+      <div class="golfer-info no-click">
+        <h3 class="title">{{ item.score.golfer.name }}</h3>
+        <span class="date block"> {{ item.score.date | date : format : timezone}} <span class="tags"> ({{item.score.tags}})</span></span>
+        <div class="score-container">
+          <span class="score">{{ item.score.score }}</span>
+        </div>
+      </div>
+    </div>
+  </md-list-item>
+</md-list> 
+<md-divider></md-divider>
+
 <md-subheader>Most Improved</md-subheader>
   <md-list class="clearfix">
      <md-list-item ng-click="seeGolfer(stat.golfer.name)" ng-repeat="stat in weekStats.improved" class="md-2-line">
@@ -11,6 +30,20 @@
           <div class="score-container">
             <span class="score">{{ stat.score }}</span>
           </div>
+      </div>
+    </div>
+  </md-list-item>
+</md-list>
+<md-divider></md-divider>
+<md-subheader>Absent</md-subheader>
+  <md-list class="clearfix">
+     <md-list-item ng-click="seeGolfer(golfer.name)" ng-repeat="golfer in weekStats.missing" class="md-2-line">
+      <div class="score-row clearfix">
+        <div class="golfer-icon">
+          <img ng-src="{{golfer.imageUrl}}">
+        </div>
+         <div class="golfer-info">
+          <h3 class="title">{{ golfer.name }} </h3>
       </div>
     </div>
   </md-list-item>

@@ -5,6 +5,10 @@ angular.module('golfers').controller('GolfersController', ['$scope', '$statePara
 	function($scope, $stateParams, $location, Authentication, Golfers) {
 		$scope.authentication = Authentication;
 
+		if(Authentication.user === "") {
+			$location.path('signin');
+		}
+
 		// Create new Golfer
 		$scope.create = function() {
 			// Create new Golfer object

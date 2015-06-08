@@ -25,7 +25,7 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 
 		    $scope.golferStats.currentGolfer = golfer;
 	
-		    Golfers.query(function (res) {
+		   	Golfers.query(function(res) {
 		    	angular.forEach(res,function (value, key) {
 		    		if(golfer == value.name) {
 		    			$scope.golferStats.currentGolfer = value
@@ -106,6 +106,15 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 			  	$scope.weekStats.improved = data;
 			  });
 
+			$http.get('/lowHigh?week=true').
+			  success(function(data, status, headers, config) {
+			  	$scope.weekStats.lowHigh = data;
+			  });
+
+			 //Load up the missings	
+			 getMissing(weekScores, $scope.weekStats, 'missing');
+
+
 		}
 
 		function buildYearDataSet() {
@@ -158,6 +167,34 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 		}
 
 
+		function getMissing(scores, arr, prop) {
+			var missing = [];
+		  	Golfers.query(function(golfers) {
+ 
+		  		for(var i = 0; i < golfers.length; i++) {
+		  			var exist = false;
+
+		  			for(var k = 0; k <scores.length; k++) {
+		  				if(golfers[i].name == scores[k].golfer.name) {
+		  					exist = true;
+		  					break;
+		  				}
+		  			}
+
+		  			if(!exist) {
+		  				missing.push(golfers[i]);
+		  			}
+
+		  		}
+
+		  		arr[prop] = missing;
+
+		    })
+
+
+		}
+
+
 		function getAverage (arr) {
 			var sum = 0;
 
@@ -180,13 +217,3 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 		}
 	}
 ])
-.filter('isAfter', function() {
-  return function(items, dateAfter) {
-    // Using ES6 filter method
-    if(items != undefined) {
-	    return items.filter(function(item){
-	      return moment(item.date).isAfter(dateAfter);
-	    })
-    }
-  }
-});

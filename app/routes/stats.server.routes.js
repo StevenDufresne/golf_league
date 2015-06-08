@@ -17,6 +17,4 @@ module.exports = function(app) {
 	app.route('/lowHigh')
 		.get(stats.lowHigh);
 
-
-
 };

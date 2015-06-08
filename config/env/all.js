@@ -28,7 +28,6 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/jquery/dist/jquery.min.js',
 				'public/lib/d3/d3.min.js',
-				'public/lib/metrics-graphics/dist/metricsgraphics.js',
 				'public/lib/chartist/dist/chartist.min.js',
 				'public/lib/moment/min/moment.min.js'
 			]

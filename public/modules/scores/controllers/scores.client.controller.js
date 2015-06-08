@@ -6,10 +6,13 @@ angular.module('scores').controller('ScoresController', ['$scope', '$stateParams
 		$scope.authentication = Authentication;
 		$scope.success = false;
 
+		if(Authentication.user === "") {
+			$location.path('signin');
+		}
+
 		// Create new Score
 		$scope.create = function() {
 			var self = this;
-
 
 			angular.forEach(this.golfers, function (value, key) {
 

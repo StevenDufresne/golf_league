@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Score = mongoose.model('Score'),
+	Golfer = mongoose.model('Golfer'),
 	_ = require('lodash'),
 	moment = require('moment'),
 	ss = require('simple-statistics');
@@ -100,26 +101,15 @@ exports.improved = function(req, res) {
 		} else {
 			//group scores
 
-			for(var i = 0; i < scores.length; i++ ) {
-
-				if(moment().diff(scores[i].date, 'days') < 7) {
-					lstWeeks.push(scores[i]);
-				}
-			}
-
-
+			lstWeeks = getLastWeeks(scores);
 
 			obj = groupByNest(scores, 'golfer','name','score');
-
-
 
 			//Get standard deviation
 			for (var key in obj) {
 			   if (obj.hasOwnProperty(key)) {
 			       var scores = obj[key].score,
 			       golferMean = ss.mean(obj[key].score);
-
-			       
 
 			       for(var i = 0; i < lstWeeks.length; i++ ) {
 				       	if(lstWeeks[i].golfer.name == key) {
@@ -133,8 +123,6 @@ exports.improved = function(req, res) {
 			        		});
 				       	}
 			       	}
-
-
 			    }
 			}
 
@@ -149,13 +137,17 @@ exports.improved = function(req, res) {
 exports.lowHigh	 = function(req, res) {
 	var obj = {},
 	returnObj = [],
-	filter = (req.query.golfer == undefined) ? "" : req.query.golfer,
+	filterGolfer = (req.query.golfer == undefined) ? "" : req.query.golfer,
+	filterWeek = (req.query.week == undefined) ? "" : true,
 	query = {};
 
 	//Do they want it for a specific golfer?
-	if(filter !== "") {
-		query = Score.find().where('golfer.name').equals(filter);
-	} else {
+	if(filterGolfer !== "") {
+		query = Score.find().where('golfer.name').equals(filterGolfer);
+	} else if(filterWeek){
+		query = Score.find({"date": {"$gte": moment().subtract(7, 'days')}})
+	} 
+	else {
 		query = Score.find();
 	}
 
@@ -213,6 +205,20 @@ function HighLowSort(a,b) {
   if (a.score > b.score)
     return 1;
   return 0;
+}
+
+function getLastWeeks(scores) {
+	var lstWeeks = [];
+
+	for(var i = 0; i < scores.length; i++ ) {
+
+		if(moment().diff(scores[i].date, 'days') < 7) {
+			lstWeeks.push(scores[i]);
+		}
+	}
+
+	return lstWeeks;
+
 }
 
 function ImprovedSort(a,b) {
