@@ -137,6 +137,20 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 			  success(function(data, status, headers, config) {
 			  	$scope.yearStats.stats = data;
 			  });
+
+			$http.get('/playerAverages').
+			  success(function(data, status, headers, config) {
+			  	var series = [],
+				labels = [];
+
+				angular.forEach(data, function(value, key) {
+					labels.push(value.golfer);
+					series.push(parseInt(value.mean));
+
+				})
+
+				$scope.yearStats.playerAverages = [series, labels];
+			 });
 		}
 
 

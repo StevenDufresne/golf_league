@@ -9,6 +9,7 @@ angular.module('core').directive('charts', [
 				var id = '#'+ attrs.id;
 				var chartType = attrs.type;
 				var dataName = attrs.dataname;
+				var showLine = attrs.showline;
 
 				scope.$watch(dataName, function(newValue, oldValue) {
 	    			if (newValue && newValue.length > 0) {
@@ -20,18 +21,37 @@ angular.module('core').directive('charts', [
 	    					series = newValue[0];
 	    				}
 
+	    				if(showLine == "false") {
+	    					var chart = new Chartist[chartType](id, {
+							  labels: newValue[1],
+							  series: series
+							}, {
+								fullWidth: true,
+								chartPadding: {
+									right: 20,
+									left: -10
+								},
+								showLine: false,
+								plugins: [
+								    Chartist.plugins.ctPointLabels({
+								      textAnchor: 'right'
+								    })
+								  ]
+							})
 
-	    				new Chartist[chartType](id, {
-						  labels: newValue[1],
-						  series: series
-						}, {
-							fullWidth: true,
-							chartPadding: {
-								right: 20,
-								left: -10
-							}
-						})
+	    				} else {
 
+		    				var chart = new Chartist[chartType](id, {
+							  labels: newValue[1],
+							  series: series
+							}, {
+								fullWidth: true,
+								chartPadding: {
+									right: 20,
+									left: -10
+								}
+							})
+		    			}
 					}
 		        });
 			}

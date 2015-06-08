@@ -26,7 +26,10 @@
   </md-list-item>
 </md-list> 
 <md-divider></md-divider>
-
+  <md-subheader>Player Averages</md-subheader>     
+    <div class="card" >
+    <charts class="ct-chart" id="ct-golfers" type="Line" showline="false" dataName="yearStats.playerAverages" data="{{ yearStats.playerAverages }}"></charts>
+  </div>
 <md-subheader>Most Consistent</md-subheader>
 <md-list class="clearfix">
    <md-list-item ng-click="seeGolfer(item.golfer.name)" ng-repeat="item in yearStats.consistent | orderBy: 'deviation'">

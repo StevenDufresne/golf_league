@@ -79,13 +79,42 @@ exports.averages = function(req, res) {
 					'mean': ss.mean([parseInt(returnObj[0].mean), parseInt(returnObj[1].mean)]).toFixed(1)
 
 				})
-
 			}
 
 			res.jsonp(returnObj);
 		}
 	});
+};
 
+exports.playerAverages = function(req, res) {
+	var obj = {},
+	returnObj = [];
+
+	Score.find().exec(function(err, scores) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			//group scores
+				
+			obj = groupByNest(scores, 'golfer', 'name', 'score');
+
+			//Get standard deviation
+			for (var key in obj) {
+			   if (obj.hasOwnProperty(key)) {
+			       var scores = obj[key].score;
+
+			        returnObj.push({
+			        	'golfer': key,
+			        	'mean': ss.mean(scores).toFixed(1)
+			        });
+			    }
+			}
+
+			res.jsonp(returnObj);
+		}
+	});
 };
 
 exports.improved = function(req, res) {

@@ -17,4 +17,7 @@ module.exports = function(app) {
 	app.route('/lowHigh')
 		.get(stats.lowHigh);
 
+	app.route('/playerAverages')
+		.get(stats.playerAverages);
+
 };
