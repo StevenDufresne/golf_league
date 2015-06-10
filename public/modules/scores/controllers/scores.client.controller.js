@@ -16,9 +16,10 @@ angular.module('scores').controller('ScoresController', ['$scope', '$stateParams
 
 			angular.forEach(this.golfers, function (value, key) {
 
+				debugger;
 				var score = new Scores ({
 					score: value.score,
-					date: self.submissionDate,
+					date: moment(self.submissionDate).add(8, 'hours'),
 					tags: self.tags,
 					golfer: value
 				}).$save(function(response) {
