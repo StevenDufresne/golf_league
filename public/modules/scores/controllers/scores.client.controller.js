@@ -6,6 +6,8 @@ angular.module('scores').controller('ScoresController', ['$scope', '$stateParams
 		$scope.authentication = Authentication;
 		$scope.success = false;
 
+		var dateCreated = "";
+
 		if(Authentication.user === "") {
 			$location.path('signin');
 		}
@@ -13,6 +15,10 @@ angular.module('scores').controller('ScoresController', ['$scope', '$stateParams
 		// Create new Score
 		$scope.create = function() {
 			var self = this;
+
+			if(dateCreated == self.submissionDate) { return; }
+			
+			dateCreated = self.submissionDate;
 
 			angular.forEach(this.golfers, function (value, key) {
 				var score = new Scores ({
