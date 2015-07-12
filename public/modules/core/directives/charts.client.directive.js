@@ -29,7 +29,8 @@ angular.module('core').directive('charts', [
 								fullWidth: true,
 								chartPadding: {
 									right: 20,
-									left: -10
+									left: -10,
+									top: 20
 								},
 								showLine: false,
 								plugins: [

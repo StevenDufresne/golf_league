@@ -15,8 +15,6 @@ angular.module('scores').controller('ScoresController', ['$scope', '$stateParams
 			var self = this;
 
 			angular.forEach(this.golfers, function (value, key) {
-
-				debugger;
 				var score = new Scores ({
 					score: value.score,
 					date: moment(self.submissionDate).add(8, 'hours'),
@@ -79,7 +77,6 @@ angular.module('scores').controller('ScoresController', ['$scope', '$stateParams
 				scoreId: $stateParams.scoreId
 			});
 		};
-
 
 		$scope.getGolfers();
 	}
