@@ -103,6 +103,10 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 
 			$http.get('/improved').
 			  success(function(data, status, headers, config) {
+			  	$scope.weekStats.best = data.shift();
+			  	$scope.weekStats.worst = data.pop();
+			  	$scope.weekStats.rest = data;
+
 			  	$scope.weekStats.improved = data;
 			  });
 
@@ -150,6 +154,7 @@ angular.module('core').controller('HomeController', ['$scope', '$http', 'Authent
 				})
 
 				$scope.yearStats.playerAverages = [series, labels];
+
 			 });
 		}
 

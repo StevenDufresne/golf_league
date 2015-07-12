@@ -1,3 +1,57 @@
+<md-subheader>Bey's Best</md-subheader>
+ <md-list class="clearfix">
+     <md-list-item ng-click="seeGolfer(weekStats.best.golfer.name)" class="md-2-line">
+      <div class="score-row clearfix">
+        <div class="golfer-icon">
+          <img ng-src="{{weekStats.best.golfer.imageUrl}}">
+        </div>
+         <div class="golfer-info">
+          <h3 class="title">{{ weekStats.best.golfer.name }} </h3>
+          <small class="gentle">Shot <span ng-bind="weekStats.best.improvement"></span>% better than his average</small>
+          <div class="score-container">
+            <span class="score">{{ weekStats.best.score }}</span>
+          </div>
+      </div>
+    </div>
+  </md-list-item>
+</md-list>
+<md-divider></md-divider>
+<md-subheader>Bey's Worst</md-subheader>
+ <md-list class="clearfix">
+     <md-list-item ng-click="seeGolfer(weekStats.worst.golfer.name)" class="md-2-line">
+      <div class="score-row clearfix">
+        <div class="golfer-icon">
+          <img ng-src="{{weekStats.worst.golfer.imageUrl}}">
+        </div>
+         <div class="golfer-info">
+          <h3 class="title">{{ weekStats.worst.golfer.name }} </h3>
+          <small class="gentle">Shot <span ng-bind="weekStats.worst.improvement"></span>% better than his average</small>
+          <div class="score-container">
+            <span class="score">{{ weekStats.worst.score }}</span>
+          </div>
+      </div>
+    </div>
+  </md-list-item>
+</md-list>
+<md-divider></md-divider>
+<md-subheader>The rest</md-subheader>
+  <md-list class="clearfix">
+     <md-list-item ng-click="seeGolfer(stat.golfer.name)" ng-repeat="stat in weekStats.rest" class="md-2-line">
+      <div class="score-row clearfix">
+        <div class="golfer-icon">
+          <img ng-src="{{stat.golfer.imageUrl}}">
+        </div>
+         <div class="golfer-info">
+          <h3 class="title">{{ stat.golfer.name }} </h3>
+          <small class="gentle">Shot <span ng-bind="stat.improvement "></span>% better than his average</small>
+          <div class="score-container">
+            <span class="score">{{ stat.score }}</span>
+          </div>
+      </div>
+    </div>
+  </md-list-item>
+</md-list>
+<md-divider></md-divider>
 <md-subheader>Low Gross/High Gross</md-subheader>
 <md-list class="clearfix">
    <md-list-item ng-click="seeGolfer(item.score.golfer.name)" ng-repeat="item in weekStats.lowHigh">
@@ -17,24 +71,6 @@
 </md-list> 
 <md-divider></md-divider>
 
-<md-subheader>Most Improved</md-subheader>
-  <md-list class="clearfix">
-     <md-list-item ng-click="seeGolfer(stat.golfer.name)" ng-repeat="stat in weekStats.improved" class="md-2-line">
-      <div class="score-row clearfix">
-        <div class="golfer-icon">
-          <img ng-src="{{stat.golfer.imageUrl}}">
-        </div>
-         <div class="golfer-info">
-          <h3 class="title">{{ stat.golfer.name }} </h3>
-          <small class="gentle">Shot <span ng-bind="stat.improvement "></span>% better than his average</small>
-          <div class="score-container">
-            <span class="score">{{ stat.score }}</span>
-          </div>
-      </div>
-    </div>
-  </md-list-item>
-</md-list>
-<md-divider></md-divider>
 <md-subheader>Absent</md-subheader>
   <md-list class="clearfix">
      <md-list-item ng-click="seeGolfer(golfer.name)" ng-repeat="golfer in weekStats.missing" class="md-2-line">
